@@ -1,7 +1,9 @@
 const express=require('express');
 const router=express.Router();
-const signUpRoutes=require('../controllers/signUp');
+const loginControllers=require('../controllers/login');
 
-router.get('/',signUpRoutes.getSignUpPage);
+router.get('/',loginControllers.getLoginPage);
+// router.post('/',loginControllers.postLoginPage);
+
 
 module.exports=router;

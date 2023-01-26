@@ -5,29 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Tracker</title>
 </head>
 <body>
-    <h2>Hello <p id="Username"></p></h2>
+    <h1>Hello, Login Here <p id="Username"></p></h1>
     <header class="main_header">
         <div class="main_header_div">
             <nav class="nav-bar">
                 <ul class="item-list">
-                    <li class="list-item"><a href="">Home</a></li>
-                    <li class="list-item"><a href="">Expanses</a></li>
+                    <li class="list-item btn"><a href="" class="link">Home</a></li>
+                    <li class="list-item btn"><a href="" class="link">Expanses</a></li>
+                    <a href="/signUp" class="getIn btn" class="link">SignUp</a>
                 </ul>
             </nav>
         </div>
-        <a href="/signUp" class="getIn">SignUp</a>
     </header>
-    <section class="form_section">
-        <form action="/login" method="post">
-            <label for="email">Email</label>
-            <input type="email" name="Email">
-            <label for="password">Password</label>
-            <input type="password">
-            <button type="submit">SignUp</button>
-        </form>
-    </section>
+    <div class="centered">
+        <section class="form_section centered">
+            <div class="form">
+                <h2>Login</h2>
+                <form action="/login" method="post">
+                    <input type="email" name="Email" placeholder="Email..."><br>
+                    <input type="password" name="password" placeholder="Password..."><br>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+            </div>
+        </section>
+    </div>
 </body>
 </html>
