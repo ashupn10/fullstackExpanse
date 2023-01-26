@@ -18,7 +18,7 @@ exports.postSignUpPage = (req, res, next) => {
             else {
                 User.create({
                     name: req.body.Name,
-                    email: req.body.Email,
+                    email: req.body.Email.toLowerCase(),
                     password: req.body.password
                 })
                 .then(()=>console.log('This is Created'))
