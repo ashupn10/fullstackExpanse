@@ -1,0 +1,115 @@
+body{
+    background-color: rgb(226, 94, 94);
+    align-items: center;
+}
+h1{
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+#Username{
+    color:darkslategray;
+    text-indent: 1px;
+    text-decoration: dotted;
+}
+.main_header{
+    background-color: antiquewhite;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.main_header_div{
+    border: 1px solid rgb(226, 94, 94);
+    border-radius: 5px;
+}
+.item-list{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+.list-item{
+    width: 50px;
+}
+.link{
+    text-decoration: none;
+    color: white;
+}
+.getIn{
+    position: absolute;
+    right: 50px;
+    text-decoration: none;
+}
+.content{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.form_section{
+    align-items: center;
+    text-align: center;
+    background-color: antiquewhite;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+.form{
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid rgb(226, 94, 94);
+    border-radius: 5px;
+    width: 300px;
+    height: 300px;
+}
+.input,input{
+    margin-top: 5px;
+    padding-top: 10px;
+    width: 200px;
+    text-align: center;
+    background-color: rgb(243, 172, 172);
+}
+.label{
+    color: crimson;
+}
+.btn{
+    background-color: rgb(233, 116, 116);
+    margin: 10px;
+    padding: 4px;
+    width: fit-content;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+}
+.Expanses{
+    width: 900px;
+    height: 330px;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: antiquewhite;
+}
+.inner_div{
+    text-align: center;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.Expanse_list{
+    list-style: none;
+}
+.description .col {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+.align{
+    margin-bottom: 50px;
+}
+/* #category{
+    display: flex;
+    flex-direction: column;
+} */

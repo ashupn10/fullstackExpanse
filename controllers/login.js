@@ -1,5 +1,6 @@
 const path = require('path');
 const viewPath = path.join(__dirname, '..', 'views');
+const Expanse=require('../model/expanses');
 const bcrypt=require('bcrypt');
 const User = require('../model/User');
 
@@ -16,7 +17,7 @@ exports.postLoginPage=(req,res,next)=>{
         if(user){
             bcrypt.compare(req.body.password,user.password,(err,result)=>{
                 if(result==true){
-                    res.status(200).sendFile(viewPath+'/UserFound.html');
+                    res.redirect('/index');
                 }else{
                     res.status(401).sendFile(viewPath+'/UserNotFound.html');
                 }
