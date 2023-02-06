@@ -11,15 +11,18 @@ const app=express();
 
 
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json())
 app.use(express.static('views'));
 
 app.use('/signUp',signUpRouter);
 app.use('/login',loginRouter);
 app.use('/index',indexRouter);
-// Sequelize.sync({force:true})
-Expanse.belongsTo(User);
 User.hasMany(Expanse);
+Expanse.belongsTo(User,{
+    onDelete:'SET DEFAULT'
+});
 Sequelize.sync()
+// Sequelize.sync({force:true})
 .then(()=>{
     app.listen(3000);
 })

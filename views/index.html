@@ -27,13 +27,13 @@
         <section class="form_section">
             <div class="form">
                 <h2>Add Expanses</h2>
-                <form action="/index" method="post">
+                <form id="form">
                     <label for="Expanse" class="label">Expanse</label><br>
-                    <input type="number" name="Expanse" placeholder="Expanse..."><br><br>
+                    <input type="number" name="Expanse" placeholder="Expanse..." id="Expanse"><br><br>
                     <label for="description" class="label">Description</label><br>
-                    <input type="text" name="description" placeholder="Description..."><br><br>
+                    <input type="text" name="description" id="description" placeholder="Description..."><br><br>
                     <label for="category" class="label">Category</label><br>
-                    <select name="category" class="input">
+                    <select name="category" id="category" class="input">
                         <option value="Food">Food</option>
                         <option value="Movie">Movie</option>
                         <option value="Fuel">Fuel</option>
@@ -58,15 +58,15 @@
                         <tr>
                             <td class="description">
                                 <div>
-                                    <section class="col" id="category">
+                                    <section class="col" id="categoryDiv">
                                         <h4>Category</h4>
                                         <div ></div>
                                     </section>
-                                    <section class="col" id="description">
+                                    <section class="col" id="descriptionDiv">
                                         <h4>Description</h4>
                                         <div ></div>
                                     </section>
-                                    <section class="col" id="expanse">
+                                    <section class="col" id="expanseDiv">
                                         <h4>Expanse</h4>
                                         <div ></div>
                                     </section>

@@ -7,30 +7,40 @@ exports.getIndex=(req,res,next)=>{
     res.sendFile(viewPath+'/index.html');
 }
 exports.postIndex=(req,res,next)=>{
-    Expanse.create({
+    req.user.createExpanse({
         category:req.body.category,
         description:req.body.description,
-        expanse:req.body.Expanse
+        expanse:req.body.expanse
     })
     .then(()=>{
         res.redirect('/index');
     })
 }
 exports.fetchIndex=(req,res,next)=>{
-    Expanse.findAll()
+    const user=req.user;
+    user.getExpanses()
     .then(result=>{
-        res.json(result);
+        res.json({success:true,result,message:`${user.name}`});
     })
 }
 exports.deleteIndex=(req,res,next)=>{
-    let id=req.params.id;
-    console.log(id);
-    Expanse.destroy({
+    const id=req.params.id;
+    const user=req.user;
+    user.getExpanses({
         where:{
             id:id
         }
     })
-    .then(()=>{
+    .then(res=>{
+        // console.log(res);
+        Expanse.destroy({
+            where:{
+                Id:res[0].id
+            }
+        })
+    })
+    .then(res=>{
+        // console.log(res);
         console.log('deleted');
     })
     .catch(err=>console.log(err));

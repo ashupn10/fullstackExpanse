@@ -26,7 +26,7 @@ exports.postSignUpPage = (req, res, next) => {
                     })
                     .then(()=>console.log('This is Created'))
                     .then(() => res.redirect('/login'))
-                        .catch(err => console.log(err));
+                    .catch(err => console.log(err));
                 })
             }
         })

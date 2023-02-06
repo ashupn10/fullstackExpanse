@@ -9,7 +9,6 @@ const Expanse=sequelize.define('Expanse',{
     description:{
         type:Sequelize.STRING,
         allowNull:false,
-
     },
     expanse:{
         type:Sequelize.INTEGER,
