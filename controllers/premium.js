@@ -25,22 +25,23 @@ exports.initiatePremium=async (req,res,next)=>{
         res.status(403).json({message:'something went wrong',error:err});
     }
 }
-exports.updateTransaction=(req,res,next)=>{
+exports.updateTransaction=async (req,res,next)=>{
     try{
         const {payment_id,order_id}=req.body;
-        console.log(payment_id,order_id);
-        Order.findOne({where:{orderId:order_id}})
-        .then(response=>{
-            response.update({paymentId:payment_id,status:'successful'})
+        if(payment_id){
+            const response=await Order.findOne({where:{orderId:order_id}})
+            const promise1=response.update({paymentId:payment_id,status:'successful'})
+            const promise2= req.user.update({isPremium:true});
+            Promise.all([promise1,promise2])
             .then(()=>{
-                return res.status(202).json({success:true,message:'Transaction Successful'});
+                return res.status(202).json({success:true,message:'Transaction Successful',isPremium:req.user.isPremium});
             })
-            .catch(err=>{
-                throw new Error(err);
+        }else{
+            Order.findOne({where:{orderId:order_id}})
+            .then(response=>{
+                response.update({status:'failed'});
             })
-        }).catch(err=>{
-            throw new Error(err);
-        })
+        }
     }catch(err){
         console.log(err);
         res.status(403).json({error:err,message:'something went wrong'});

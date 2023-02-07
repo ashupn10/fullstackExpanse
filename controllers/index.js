@@ -20,7 +20,7 @@ exports.fetchIndex=(req,res,next)=>{
     const user=req.user;
     user.getExpanses()
     .then(result=>{
-        res.json({success:true,result,message:`${user.name}`});
+        res.json({success:true,result,message:`${user.name}`,isPremium:user.isPremium});
     })
 }
 exports.deleteIndex=(req,res,next)=>{

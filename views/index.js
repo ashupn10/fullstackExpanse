@@ -14,6 +14,7 @@ rzpButton.addEventListener('click', initiateTransaction)
 
 // functions for event Listeners....
 
+
 async function initiateTransaction(e) {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -27,15 +28,18 @@ async function initiateTransaction(e) {
                 order_id:options.order_id,
                 payment_id:response.razorpay_payment_id
             },{headers:{'Authentication':token}});
+            showPremium();
             alert('you are a premium user now');
+
         }
     }
     const rzp1=new Razorpay(options);
     rzp1.open();
     e.preventDefault();
-    rzp1.on('payment.failed',function(response){
+    rzp1.on('payment.failed',async function(response){
         console.log(response);
-        alert('something went wrong');
+        await axios.post('')
+        alert('Transaction failed please try again');
     })
 }
 function deleteExpanse(id) {
@@ -62,6 +66,11 @@ function postExpanses() {
         })
         .catch(err => console.log(err));
 }
+async function showPremium(){
+    rzpButton.remove();
+    const premium=document.getElementById('isPremium');
+    premium.innerText='You are Premium User';
+}
 function showExpanses() {
     const token = localStorage.getItem('token');
     // console.log(token);
@@ -69,11 +78,12 @@ function showExpanses() {
         .then(res => {
             // result=JSON.parse(result.data);
             // console.log(res.data);
+            let Username = document.getElementById('username');
+            Username.innerText = `Hello! ${res.data.message}`;
+            if(res.data.isPremium) showPremium();
             const table = document.getElementById('table');
             res.data.result.forEach(element => {
                 let category = document.getElementById('categoryDiv');
-                let Username = document.getElementById('username');
-                Username.innerText = `Hello! ${res.data.message}`;
                 let expanse = document.getElementById('expanseDiv');
                 let description = document.getElementById('descriptionDiv');
                 let expansediv = document.createElement('div');
