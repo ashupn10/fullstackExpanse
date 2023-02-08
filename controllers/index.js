@@ -6,12 +6,15 @@ const viewPath = path.join(__dirname, '..', 'views');
 exports.getIndex=(req,res,next)=>{
     res.sendFile(viewPath+'/index.html');
 }
-exports.postIndex=(req,res,next)=>{
-    req.user.createExpanse({
+exports.postIndex=async (req,res,next)=>{
+    const promise1= req.user.createExpanse({
         category:req.body.category,
         description:req.body.description,
         expanse:req.body.expanse
-    })
+    });
+    const totalExpanse=parseInt(req.user.totalExpanse)+parseInt(req.body.expanse);
+    const promise2=req.user.update({totalExpanse:totalExpanse});
+    Promise.all([promise1,promise2])
     .then(()=>{
         res.redirect('/index');
     })

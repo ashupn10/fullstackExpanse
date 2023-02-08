@@ -113,3 +113,6 @@ h2{
     display: flex;
     flex-direction: column;
 } */
+.totalexpanse-list{
+    list-style: none;
+}

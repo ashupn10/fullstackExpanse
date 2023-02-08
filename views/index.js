@@ -70,6 +70,34 @@ async function showPremium(){
     rzpButton.remove();
     const premium=document.getElementById('isPremium');
     premium.innerText='You are Premium User';
+    const token=localStorage.getItem('token');
+    console.log(token)
+    const response = await axios.get('http://localhost:3000/premium/fetchAll',{headers:{'Authentication':token}});
+    // console.log(response);
+    // await showLeaderBoard(response.data.Users);
+    const leaderBoard=document.getElementById('leaderBoard');
+    leaderBoard.innerHTML='<button id="ldb_btn">Show leaderboard</button>';
+    leaderBoard.addEventListener('click',()=>{
+        showLeaderBoard(response.data.Users);
+    })
+}
+function compareExpanse(a,b){
+    return b.totalExpanse-a.totalExpanse;
+}
+async function showLeaderBoard(data){
+    const leaderBoard=document.getElementById('leaderBoard');
+    const list= document.createElement('ul');
+    list.className='totalexpanse-list';
+    console.log(data);
+    data.sort(compareExpanse);
+    data.forEach(user=>{
+        const listItem=document.createElement('li');
+        listItem.innerText=`Name:${user.name}  TotalExpanse:${user.totalExpanse}`;
+        list.appendChild(listItem);
+    })
+    const btn=document.getElementById('ldb_btn');
+    btn.remove();
+    leaderBoard.appendChild(list);
 }
 function showExpanses() {
     const token = localStorage.getItem('token');

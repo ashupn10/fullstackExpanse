@@ -1,5 +1,8 @@
 const Razorpay= require('razorpay');
 const Order=require('../model/order');
+const Expanse=require('../model/expanses');
+const User=require('../model/User');
+
 exports.initiatePremium=async (req,res,next)=>{
     try{
         var rzp=new Razorpay({
@@ -46,4 +49,8 @@ exports.updateTransaction=async (req,res,next)=>{
         console.log(err);
         res.status(403).json({error:err,message:'something went wrong'});
     }
+}
+exports.fetchAll=async (req,res,next)=>{
+    const response= await User.findAll()
+    res.status(201).json({success:true,Users:response,})
 }

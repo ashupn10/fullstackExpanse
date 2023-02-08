@@ -20,6 +20,10 @@ const User=sequelize.define('user',{
         type:Sequelize.BOOLEAN,
         defaultValue:false,
     },
+    totalExpanse:{
+        type:Sequelize.INTEGER,
+        defaultValue:0,
+    },
     password:{
         type:Sequelize.STRING,
         allowNull:false,
