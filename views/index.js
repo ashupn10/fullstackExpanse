@@ -19,7 +19,6 @@ async function initiateTransaction(e) {
     e.preventDefault();
     const token = localStorage.getItem('token');
     const response=await axios.get('http://localhost:3000/premium', { headers: { 'Authentication': token } })
-    console.log(response);
     var options={
         'key':response.data.key_Id,
         'order_id':response.data.order.id,
@@ -71,14 +70,11 @@ async function showPremium(){
     const premium=document.getElementById('isPremium');
     premium.innerText='You are Premium User';
     const token=localStorage.getItem('token');
-    console.log(token)
     const response = await axios.get('http://localhost:3000/premium/fetchAll',{headers:{'Authentication':token}});
-    // console.log(response);
-    // await showLeaderBoard(response.data.Users);
     const leaderBoard=document.getElementById('leaderBoard');
     leaderBoard.innerHTML='<button id="ldb_btn">Show leaderboard</button>';
     leaderBoard.addEventListener('click',()=>{
-        showLeaderBoard(response.data.Users);
+        showLeaderBoard(response.data);
     })
 }
 function compareExpanse(a,b){
@@ -88,11 +84,9 @@ async function showLeaderBoard(data){
     const leaderBoard=document.getElementById('leaderBoard');
     const list= document.createElement('ul');
     list.className='totalexpanse-list';
-    console.log(data);
-    data.sort(compareExpanse);
     data.forEach(user=>{
         const listItem=document.createElement('li');
-        listItem.innerText=`Name:${user.name}  TotalExpanse:${user.totalExpanse}`;
+        listItem.innerText=`Name:${user.name}  TotalExpanse:${user.total_cost}`;
         list.appendChild(listItem);
     })
     const btn=document.getElementById('ldb_btn');
@@ -101,11 +95,8 @@ async function showLeaderBoard(data){
 }
 function showExpanses() {
     const token = localStorage.getItem('token');
-    // console.log(token);
     axios.get('http://localhost:3000/index/fetch', { headers: { 'Authentication': token } })
         .then(res => {
-            // result=JSON.parse(result.data);
-            // console.log(res.data);
             let Username = document.getElementById('username');
             Username.innerText = `Hello! ${res.data.message}`;
             if(res.data.isPremium) showPremium();
@@ -132,7 +123,6 @@ function showExpanses() {
                     deleteExpanse(element.id)
                     window.location.replace('http://localhost:3000/index');
                 });
-                // editbtn.addEventListener('click',editExpanse,element.id);
                 category.appendChild(categorydiv);
                 expanse.appendChild(expansediv);
                 description.appendChild(descriptiondiv);
