@@ -2,6 +2,8 @@ const Razorpay= require('razorpay');
 const Order=require('../model/order');
 const Expanse=require('../model/expanses');
 const User=require('../model/User');
+const sequelize = require('../util/database');
+const Sequelize=require('sequelize');
 
 exports.initiatePremium=async (req,res,next)=>{
     try{
@@ -51,6 +53,21 @@ exports.updateTransaction=async (req,res,next)=>{
     }
 }
 exports.fetchAll=async (req,res,next)=>{
-    const response= await User.findAll()
-    res.status(201).json({success:true,Users:response,})
+    try{
+        const response=await User.findAll({
+            attributes:['id','name',[sequelize.fn('sum',sequelize.col('Expanses.expanse')),'total_cost']],
+            include:[
+                {
+                    model:Expanse,
+                    attributes:[]
+                }
+            ],
+            group:['id']
+        })
+        console.log(response);
+        res.json(response);
+    }catch(err){
+        console.log(err);
+        res.status(500).json(err)
+    }
 }
