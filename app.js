@@ -1,5 +1,7 @@
 const express=require('express');
 const bodyParser=require('body-parser');
+require('dotenv').config();
+console.log(process.env)
 const signUpRouter=require('./routes/signUp');
 const loginRouter=require('./routes/login');
 const indexRouter=require('./routes/index');
@@ -16,6 +18,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json())
 app.use(express.static('views'));
 
+app.use('/password',passwordRouter);
 app.use('/signUp',signUpRouter);
 app.use('/login',loginRouter);
 app.use('/index',indexRouter);
