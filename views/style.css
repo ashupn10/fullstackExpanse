@@ -2,7 +2,7 @@ body{
     background-color: rgb(226, 94, 94);
     align-items: center;
 }
-h1{
+h1,h2{
     text-align: center;
 }
 #Username{
@@ -94,4 +94,10 @@ input{
     border-radius: 5px;
     color: white;
 }
-
+#forgot{
+    text-decoration: none;
+    font-size: small;
+}
+#forget-btn{
+    margin: 30px;
+}
