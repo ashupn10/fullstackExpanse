@@ -1,6 +1,9 @@
 const express=require('express');
 const passwordcontroller=require('../controllers/forgot');
-const auth = require('../middleware/auth');
+
 const router=express.Router();
 
-router.get('/forgot',auth,passwordcontroller.forgotpassword)
+router.use('/reset/:uuid',passwordcontroller.resetPassword);
+router.post('/forgot',passwordcontroller.forgotpassword);
+
+module.exports=router;

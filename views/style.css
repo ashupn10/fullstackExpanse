@@ -101,3 +101,6 @@ input{
 #forget-btn{
     margin: 30px;
 }
+#reset{
+    display: none;
+}
