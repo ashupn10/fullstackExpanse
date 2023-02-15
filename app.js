@@ -2,6 +2,11 @@
 
 const express=require('express');
 const bodyParser=require('body-parser');
+const morgan=require('morgan');
+const fs=require('fs');
+const path=require('path');
+const compression=require('compression');
+const helmet = require('helmet');
 
 //all routes are imported here
 const signUpRouter=require('./routes/signUp');
@@ -17,10 +22,13 @@ const Order=require('./model/order');
 const forgotPassword=require('./model/forgotpasswordrequests');
 const DownloadedReport=require('./model/DownloadedReport');
 // const sequelize=require('sequelize');
-
+const accessfileStream=fs.createWriteStream(path.join(__dirname,'access.log'),{flags:'a'})
 // Database imported here
 const Sequelize=require('./util/database');
 const app=express();
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined',{stream:accessfileStream}))
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json())
 app.use(express.static('views'));
