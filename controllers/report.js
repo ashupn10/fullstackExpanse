@@ -1,13 +1,14 @@
 const AWS=require('aws-sdk');
 const path=require('path');
+require('dotenv').config();
 const viewPath = path.join(__dirname, '..', 'views');
 
 
 const uploadS3=(filename,data)=>{
     try{
         const BUCKET_NAME='expansetracker';
-        const IAM_USER_KEY='AKIAQC3NOXV4LYVCMJVR';
-        const IAM_USER_SECRET='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';
+        const IAM_USER_KEY=process.env.IAM_USER_KEY;
+        const IAM_USER_SECRET=process.env.IAM_USER_SECRET;
         const newawsbucket=new AWS.S3({
             accessKeyId:IAM_USER_KEY,
             secretAccessKey:IAM_USER_SECRET,
