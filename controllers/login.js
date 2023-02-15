@@ -1,6 +1,5 @@
 const path = require('path');
 const viewPath = path.join(__dirname, '..', 'views');
-const Expanse=require('../model/expanses');
 const jwt=require('jsonwebtoken');
 const bcrypt=require('bcrypt');
 const User = require('../model/User');
@@ -12,13 +11,14 @@ function generateKeyToken(id){
 exports.getLoginPage=(req,res,next)=>{
     res.sendFile(viewPath+'/login.html');
 }
-exports.postLoginPage=(req,res,next)=>{
-    User.findOne({
-        where:{
-            email:req.body.data.email.toLowerCase()
-        }
-    })
-    .then(user=>{
+exports.postLoginPage=async (req,res,next)=>{
+
+    try{
+        const user=await User.findOne({
+            where:{
+                email:req.body.data.email.toLowerCase()
+            }
+        })
         if(user){
             bcrypt.compare(req.body.data.password,user.password,(err,result)=>{
                 if(result==true){
@@ -33,6 +33,7 @@ exports.postLoginPage=(req,res,next)=>{
         else{
             res.status(404).json({success:false,message:'User not found'});
         }
-    })
-    .catch(err=>console.log(err));
+    }catch(err){
+        console.log(err);
+    }
 }
