@@ -86,7 +86,7 @@ h2{
 }
 .Expanses{
     width: 900px;
-    height: 330px;
+    height: fit-content;
     margin: 5px;
     padding: 5px;
     border-radius: 5px;
@@ -122,4 +122,17 @@ h2{
 }
 #totalPage{
     margin: 3px;
+}
+.inputSize{
+    width: 30px;
+    height: 10px;
+}
+.ExpanseH2{
+    display: inline;
+}
+#itemsPerPage{
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    align-items: center;
 }

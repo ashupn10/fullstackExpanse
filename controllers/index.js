@@ -23,9 +23,10 @@ exports.fetchIndex=async (req,res,next)=>{
         const user=req.user;
         console.log(req.params);
         const page=parseInt(req.params.page);
+        const itemsperPage=parseInt(req.params.itemsperPage);
         let totalpage=await Expanse.count();
-        totalpage=Math.ceil(totalpage/3);
-        const result=await user.getExpanses({offset:(page-1)*3,limit:3});
+        totalpage=Math.ceil(totalpage/itemsperPage);
+        const result=await user.getExpanses({offset:(page-1)*itemsperPage,limit:itemsperPage});
         res.json({success:true,result,totalpage:totalpage,message:`${user.name}`,isPremium:user.isPremium});
     }catch(err){
         console.log(err);

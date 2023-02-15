@@ -7,6 +7,7 @@ const report=document.getElementById('report');
 const currentPage=document.getElementById('current');
 const nextPage=document.getElementById('next');
 const previosPage=document.getElementById('previous');
+const perPage=document.getElementById('itemsPerPage');
 var currentPagevalue=parseInt(1);
 // Event Listeners.....
 
@@ -14,6 +15,12 @@ var currentPagevalue=parseInt(1);
 document.addEventListener('DOMContentLoaded', ()=>{
     showExpanses(currentPagevalue);
 });
+perPage.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    let val=document.getElementById('inputperpage').value;
+    localStorage.setItem('ItemPerPage',val);
+    showExpanses(1);
+})
 form.addEventListener('submit', postExpanses);
 rzpButton.addEventListener('click', initiateTransaction);
 report.addEventListener('click',showAlert);
@@ -37,7 +44,6 @@ function removeElementByClassName(tagName){
         element[index].parentNode.removeChild(element[index]);
     }
 }
-
 async function showReport(){
     window.location.href='http://localhost:3000/report';
 }
@@ -128,8 +134,9 @@ async function showLeaderBoard(data){
     leaderBoard.appendChild(list);
 }
 function showExpanses(page) {
+    let itemsperPage=localStorage.getItem('ItemPerPage');
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:3000/index/fetch/'+`${page}`, { headers: { 'Authentication': token } })
+    axios.get('http://localhost:3000/index/fetch/'+`${page}/${itemsperPage}`, { headers: { 'Authentication': token } })
         .then(res => {
             removeElementByClassName('row');
             const Totalpage=document.getElementById('totalPage');
