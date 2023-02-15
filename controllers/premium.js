@@ -71,3 +71,12 @@ exports.fetchAll=async (req,res,next)=>{
         res.status(500).json(err)
     }
 }
+exports.isPremium=(req,res,next)=>{
+    const user=req.user;
+    console.log(user);
+    if(user.isPremium){
+        return res.status(200).json({success:true,message:'IsPremium',isPremium:true});
+    }else{
+        return res.status(401).json({success:true,message:'IsnotPremium',isPremium:false});
+    }
+}

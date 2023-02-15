@@ -2,6 +2,10 @@ body{
     background-color:  rgb(226, 94, 94);
     background:wheat;
 }
+.body_div{
+    margin-left: 50px;
+    margin-top: 10px;
+}
 #table_div{
     overflow-x:auto;
     margin:50px;
@@ -34,3 +38,8 @@ table {
     color: white;
 }
   tr:nth-child(even){background-color: #f2f2f2}
+.downloadTable{
+    width: 50%;
+    text-align: center;
+    margin:auto;
+}

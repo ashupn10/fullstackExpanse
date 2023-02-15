@@ -3,7 +3,7 @@
 const list = document.getElementById('list');
 const form = document.getElementById('form');
 const rzpButton = document.getElementById('rzp-button');
-
+const report=document.getElementById('report');
 
 // Event Listeners.....
 
@@ -11,10 +11,17 @@ const rzpButton = document.getElementById('rzp-button');
 document.addEventListener('DOMContentLoaded', showExpanses);
 form.addEventListener('submit', postExpanses);
 rzpButton.addEventListener('click', initiateTransaction)
-
+report.addEventListener('click',showAlert);
 // functions for event Listeners....
 
-
+async function showReport(){
+    window.location.href='http://localhost:3000/report';
+}
+function showAlert(){
+    // return report.href='http://localhost:3000/index';
+    alert('You are not a premium user');
+    report.href='http://localhost:3000/index';
+}
 async function initiateTransaction(e) {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -65,8 +72,11 @@ function postExpanses() {
         })
         .catch(err => console.log(err));
 }
+
 async function showPremium(){
     rzpButton.remove();
+    report.removeEventListener('click',showAlert);
+    report.addEventListener('click',showReport);
     const premium=document.getElementById('isPremium');
     premium.innerText='You are Premium User';
     const token=localStorage.getItem('token');
