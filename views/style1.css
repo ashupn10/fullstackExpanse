@@ -43,6 +43,7 @@ h2{
 .content{
     display: flex;
     flex-direction: row-reverse;
+    margin-bottom: 100px;
 }
 
 .form_section{
@@ -115,4 +116,10 @@ h2{
 } */
 .totalexpanse-list{
     list-style: none;
+}
+.pagination{
+    display: inline-block;
+}
+#totalPage{
+    margin: 3px;
 }

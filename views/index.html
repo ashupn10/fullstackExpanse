@@ -26,7 +26,6 @@
         </div>
     </header>
     <div id="leaderBoard"></div>
-
     <div class="content">
         <section class="form_section">
             <div class="form">
@@ -57,27 +56,19 @@
         <section class="Expanses">
             <div class="inner_div">
                 <h2>All Expanses</h2>
-                <table width="100%">
-                    <tbody id="table">
-                        <tr>
-                            <td class="description">
-                                <div>
-                                    <section class="col" id="categoryDiv">
-                                        <h4>Category</h4>
-                                        <div ></div>
-                                    </section>
-                                    <section class="col" id="descriptionDiv">
-                                        <h4>Description</h4>
-                                        <div ></div>
-                                    </section>
-                                    <section class="col" id="expanseDiv">
-                                        <h4>Expanse</h4>
-                                        <div ></div>
-                                    </section>
-                                </div>
-                            </td>
-                         </tr>
-                    </tbody>
+                <table width="100%" id="table">
+                    <tr class="first_row">
+                        <th>category</th>
+                        <th>Description</th>
+                        <th>Expanse</th>
+                      </tr>
+                </table>
+                <div class="pagination">
+                    <button id="previous">❮</button>
+                    <button id="current">1</button>
+                    <button id="next">❯</button>
+                </div>
+                <div id="totalPage"></div>
             </div>
         </section>
     </div>

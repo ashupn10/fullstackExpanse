@@ -4,15 +4,39 @@ const list = document.getElementById('list');
 const form = document.getElementById('form');
 const rzpButton = document.getElementById('rzp-button');
 const report=document.getElementById('report');
-
+const currentPage=document.getElementById('current');
+const nextPage=document.getElementById('next');
+const previosPage=document.getElementById('previous');
+var currentPagevalue=parseInt(1);
 // Event Listeners.....
 
 
-document.addEventListener('DOMContentLoaded', showExpanses);
+document.addEventListener('DOMContentLoaded', ()=>{
+    showExpanses(currentPagevalue);
+});
 form.addEventListener('submit', postExpanses);
-rzpButton.addEventListener('click', initiateTransaction)
+rzpButton.addEventListener('click', initiateTransaction);
 report.addEventListener('click',showAlert);
+currentPage.addEventListener('click',()=>{
+    showExpanses(currentPagevalue);
+})
+nextPage.addEventListener('click',()=>{
+    showExpanses(currentPagevalue+1);
+    currentPagevalue=currentPagevalue+1;
+    currentPage.innerText=currentPagevalue;
+})
+previosPage.addEventListener('click',()=>{
+    showExpanses(currentPagevalue-1);
+    currentPagevalue=currentPagevalue-1;
+    currentPage.innerText=currentPagevalue;
+})
 // functions for event Listeners....
+function removeElementByClassName(tagName){
+    var element = document.getElementsByClassName(tagName);
+    for (index = element.length - 1; index >= 0; index--){
+        element[index].parentNode.removeChild(element[index]);
+    }
+}
 
 async function showReport(){
     window.location.href='http://localhost:3000/report';
@@ -103,26 +127,29 @@ async function showLeaderBoard(data){
     btn.remove();
     leaderBoard.appendChild(list);
 }
-function showExpanses() {
+function showExpanses(page) {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:3000/index/fetch', { headers: { 'Authentication': token } })
+    axios.get('http://localhost:3000/index/fetch/'+`${page}`, { headers: { 'Authentication': token } })
         .then(res => {
+            removeElementByClassName('row');
+            const Totalpage=document.getElementById('totalPage');
+            Totalpage.innerText=`Total Page ${res.data.totalpage}`;
             let Username = document.getElementById('username');
             Username.innerText = `Hello! ${res.data.message}`;
             if(res.data.isPremium) showPremium();
             const table = document.getElementById('table');
             res.data.result.forEach(element => {
-                let category = document.getElementById('categoryDiv');
-                let expanse = document.getElementById('expanseDiv');
-                let description = document.getElementById('descriptionDiv');
-                let expansediv = document.createElement('div');
-                expansediv.innerHTML = element.expanse;
-                let categorydiv = document.createElement('div');
-                categorydiv.innerHTML = element.category;
-                categorydiv.className = 'align';
-                let descriptiondiv = document.createElement('div');
-                descriptiondiv.innerHTML = element.description;
-                descriptiondiv.className = 'align';
+                let row=document.createElement('tr');
+                row.className='row';
+                let expansedata=document.createElement('td');
+                let descriptiondata=document.createElement('td');
+                let categorydata=document.createElement('td');
+                expansedata.innerText=element.expanse;
+                descriptiondata.innerText=element.description;
+                categorydata.innerText=element.category;
+                row.appendChild(categorydata);
+                row.appendChild(descriptiondata);
+                row.appendChild(expansedata);
                 let editbtn = document.createElement('button')
                 let Deletebtn = document.createElement('button')
                 editbtn.innerText = 'Edit';
@@ -133,11 +160,9 @@ function showExpanses() {
                     deleteExpanse(element.id)
                     window.location.replace('http://localhost:3000/index');
                 });
-                category.appendChild(categorydiv);
-                expanse.appendChild(expansediv);
-                description.appendChild(descriptiondiv);
-                expanse.appendChild(editbtn);
-                expanse.appendChild(Deletebtn);
+                row.appendChild(editbtn);
+                row.appendChild(Deletebtn);
+                table.appendChild(row);
             });
 
         })

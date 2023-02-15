@@ -4,7 +4,7 @@ const indexControllers=require('../controllers/index');
 const auth=require('../middleware/auth');
 
 router.delete('/:id',auth,indexControllers.deleteIndex);
-router.get('/fetch',auth,indexControllers.fetchIndex);
+router.get('/fetch/:page',auth,indexControllers.fetchIndex);
 router.get('/',indexControllers.getIndex);
 router.post('/',auth,indexControllers.postIndex);
 

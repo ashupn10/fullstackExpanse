@@ -1,5 +1,4 @@
 const path = require('path');
-const User=require('../model/User');
 const Expanse=require('../model/expanses');
 const viewPath = path.join(__dirname, '..', 'views');
 
@@ -19,12 +18,18 @@ exports.postIndex=async (req,res,next)=>{
         res.redirect('/index');
     })
 }
-exports.fetchIndex=(req,res,next)=>{
-    const user=req.user;
-    user.getExpanses()
-    .then(result=>{
-        res.json({success:true,result,message:`${user.name}`,isPremium:user.isPremium});
-    })
+exports.fetchIndex=async (req,res,next)=>{
+    try{
+        const user=req.user;
+        console.log(req.params);
+        const page=parseInt(req.params.page);
+        let totalpage=await Expanse.count();
+        totalpage=Math.ceil(totalpage/3);
+        const result=await user.getExpanses({offset:(page-1)*3,limit:3});
+        res.json({success:true,result,totalpage:totalpage,message:`${user.name}`,isPremium:user.isPremium});
+    }catch(err){
+        console.log(err);
+    }
 }
 exports.deleteIndex=(req,res,next)=>{
     const id=req.params.id;
