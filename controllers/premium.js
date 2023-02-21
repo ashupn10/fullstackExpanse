@@ -5,11 +5,14 @@ const User=require('../model/User');
 const sequelize = require('../util/database');
 const Sequelize=require('sequelize');
 
+
+// 'rzp_test_ymshxTVZbrKr6k'
+// 'LnUsgIaS6LReW9gap0K4yG5n',
 exports.initiatePremium=async (req,res,next)=>{
     try{
         var rzp=new Razorpay({
-            key_id:'rzp_test_ymshxTVZbrKr6k',
-            key_secret:'LnUsgIaS6LReW9gap0K4yG5n',
+            key_id:process.env.RAZORPAY_KEY_ID,
+            key_secret:process.env.RAZORPAY_KEY_SECRET,
         })
         const amount=2000;
         rzp.orders.create({amount,currency:"INR"},(err,order)=>{
@@ -26,7 +29,6 @@ exports.initiatePremium=async (req,res,next)=>{
         })
 
     }catch(err){
-        console.log(err);
         res.status(403).json({message:'something went wrong',error:err});
     }
 }
@@ -48,7 +50,6 @@ exports.updateTransaction=async (req,res,next)=>{
             })
         }
     }catch(err){
-        console.log(err);
         res.status(403).json({error:err,message:'something went wrong'});
     }
 }
@@ -67,16 +68,18 @@ exports.fetchAll=async (req,res,next)=>{
         console.log(response);
         res.json(response);
     }catch(err){
-        console.log(err);
         res.status(500).json(err)
     }
 }
 exports.isPremium=(req,res,next)=>{
-    const user=req.user;
-    console.log(user);
-    if(user.isPremium){
-        return res.status(200).json({success:true,message:'IsPremium',isPremium:true});
-    }else{
-        return res.status(401).json({success:true,message:'IsnotPremium',isPremium:false});
+    try{
+        const user=req.user;
+        if(user.isPremium){
+            return res.status(200).json({success:true,message:'IsPremium',isPremium:true});
+        }else{
+            return res.status(401).json({success:true,message:'IsnotPremium',isPremium:false});
+        }
+    }catch(err){
+        res.status(500).json(err)
     }
 }

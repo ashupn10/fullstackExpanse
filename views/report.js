@@ -3,7 +3,17 @@
 const downloadbtn=document.getElementById('Download');
 const linkTable=document.getElementById('links_table');
 
+
+// Event Listeners
+
+document.addEventListener('DOMContentLoaded',showLinks);
+downloadbtn.addEventListener('click',downloadReport)
+
+
+
 // functions
+
+
 
 async function showLinks(){
     const token=localStorage.getItem('token');
@@ -19,19 +29,11 @@ async function showLinks(){
         linkTable.appendChild(row);
     })
 }
-
-// Event Listeners
-document.addEventListener('DOMContentLoaded',showLinks);
-downloadbtn.addEventListener('click',async ()=>{
+async function downloadReport(){
     const token=localStorage.getItem('token');
     const promise1=await axios.get('http://localhost:3000/report/download',{headers:{'Authentication':token}});
     const a=document.createElement('a');
     a.href=promise1.data.data;
     a.click();
-})
-// document.addEventListener('DOMContentLoaded',async ()=>{
-//     const token=localStorage.getItem('token');
-//     const promise1=await axios.get('http://localhost:3000/premium/isPremium',{ headers: { 'Authentication': token } })
-//     console.log(promise1);
-//     console.log('hello world');
-// })
+}
+

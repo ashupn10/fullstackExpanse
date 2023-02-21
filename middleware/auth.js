@@ -17,7 +17,7 @@ module.exports = function (req, res, next) {
             next();
         })
     }
-    catch (ex) {
+    catch (err) {
         console.log('invalid Token');
         res.status(400).send('Invalid JWT.');
     }

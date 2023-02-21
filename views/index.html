@@ -17,46 +17,57 @@
         <div class="main_header_div">
             <nav class="nav-bar">
                 <ul class="item-list">
-                    <li class="list-item btn"><a href="" class="link">Home</a></li>
-                    <li class="list-item btn"><a href="" class="link">Expanses</a></li>
+                    <a class="link btn" id="report">Report</a>
+                    <a href="http://localhost:3000/login" class="link btn" id="logout">logOut</a>
                     <button id="rzp-button">Go Premium</button>
-                    <a class="getIn btn" class="link" id="report">Report</a>
                 </ul>
             </nav>
         </div>
     </header>
-    <div id="leaderBoard"></div>
     <div class="content">
-        <section class="form_section">
-            <div class="form">
-                <h2>Add Expanses</h2>
-                <form id="form">
-                    <label for="Expanse" class="label">Expanse</label><br>
-                    <input type="number" name="Expanse" placeholder="Expanse..." id="Expanse"><br><br>
-                    <label for="description" class="label">Description</label><br>
-                    <input type="text" name="description" id="description" placeholder="Description..."><br><br>
-                    <label for="category" class="label">Category</label><br>
-                    <select name="category" id="category" class="input">
-                        <option value="Food">Food</option>
-                        <option value="Movie">Movie</option>
-                        <option value="Fuel">Fuel</option>
-                        <option value="Grocery">Grocery</option>
-                        <option value="Vegetables">Vegetables</option>
-                        <option value="Recharge">Recharge</option>
-                        <option value="Furniture">Furniture</option>
-                        <option value="Maintainance">Maintainance</option>
-                        <option value="InvestMent">InvestMent</option>
-                        <option value="Entertainment">Entertainment</option>
-                    </select><br>
+    <section class="Expanses">
+        <div id="leaderBoard"></div>
+        <div>
+            <table id="Leaderboard_table">
+                <tr>
+                    <th>Name</th>
+                    <th>Total Expanse</th>
+                </tr>
+            </table>
+        </div>
+    </section>
+    </div>
+    <div class="content">
 
-                    <button type="submit" class="btn">Add Expanse</button>
-                </form>
-            </div>
-        </section>
         <section class="Expanses">
+
             <div class="inner_div">
+                <div>
+                    <div >
+                        <h3>Add Expanses</h3>
+                        <form id="form">
+                            <input type="number" name="Expanse" placeholder="Expanse in Rupees" id="Expanse">
+                            <input type="text" name="description" id="description" placeholder="Description...">
+                            <select name="category" id="category" class="input">
+                                <option value="" disabled selected>Category</option>
+                                <option value="Food">Food</option>
+                                <option value="Movie">Movie</option>
+                                <option value="Fuel">Fuel</option>
+                                <option value="Grocery">Grocery</option>
+                                <option value="Vegetables">Vegetables</option>
+                                <option value="Recharge">Recharge</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Maintainance">Maintainance</option>
+                                <option value="InvestMent">InvestMent</option>
+                                <option value="Entertainment">Entertainment</option>
+                            </select><br>
+                            <button type="submit" class="btn">Add Expanse</button>
+                        </form>
+                    </div>
+                    <form id="itemsPerPage"><label class="hide" for="itemsper">item-per-page</label><br><input type="number" for="itemsper" class="inputSize" id="inputperpage"><br><button type="submit">Add</button></form>
+                </div>
+                <hr>
                 <h2 class="ExpanseH2">All Expanses</h2>
-                <form id="itemsPerPage"><label for="itemsper">item-per-page</label><br><input type="number" for="itemsper" class="inputSize" id="inputperpage"><br><button type="submit">Add</button></form>
                 <table width="100%" id="table">
                     <tr class="first_row">
                         <th>category</th>
@@ -80,3 +91,4 @@
 <script src="index.js"></script>
 
 </html>
+

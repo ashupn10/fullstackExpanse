@@ -6,17 +6,21 @@ exports.getIndex=(req,res,next)=>{
     res.sendFile(viewPath+'/index.html');
 }
 exports.postIndex=async (req,res,next)=>{
-    const promise1= req.user.createExpanse({
-        category:req.body.category,
-        description:req.body.description,
-        expanse:req.body.expanse
-    });
-    const totalExpanse=parseInt(req.user.totalExpanse)+parseInt(req.body.expanse);
-    const promise2=req.user.update({totalExpanse:totalExpanse});
-    Promise.all([promise1,promise2])
-    .then(()=>{
-        res.redirect('/index');
-    })
+    try{
+        const promise1= req.user.createExpanse({
+            category:req.body.category,
+            description:req.body.description,
+            expanse:req.body.expanse
+        });
+        const totalExpanse=parseInt(req.user.totalExpanse)+parseInt(req.body.expanse);
+        const promise2=req.user.update({totalExpanse:totalExpanse});
+        Promise.all([promise1,promise2])
+        .then(()=>{
+            res.redirect('/index');
+        })
+    }catch(err){
+        console.log(err);
+    }
 }
 exports.fetchIndex=async (req,res,next)=>{
     try{
@@ -24,33 +28,49 @@ exports.fetchIndex=async (req,res,next)=>{
         console.log(req.params);
         const page=parseInt(req.params.page);
         const itemsperPage=parseInt(req.params.itemsperPage);
-        let totalpage=await Expanse.count();
-        totalpage=Math.ceil(totalpage/itemsperPage);
+        let totalitems=await req.user.countExpanses();
+        console.log(totalitems)
+        totalpage=Math.ceil(totalitems/itemsperPage);
         const result=await user.getExpanses({offset:(page-1)*itemsperPage,limit:itemsperPage});
         res.json({success:true,result,totalpage:totalpage,message:`${user.name}`,isPremium:user.isPremium});
     }catch(err){
         console.log(err);
     }
 }
-exports.deleteIndex=(req,res,next)=>{
-    const id=req.params.id;
-    const user=req.user;
-    user.getExpanses({
-        where:{
-            id:id
-        }
-    })
-    .then(res=>{
-        // console.log(res);
-        Expanse.destroy({
+exports.deleteIndex=async (req,res,next)=>{
+    try{
+        const id=req.params.id;
+        const user=req.user;
+        const response=await user.getExpanses({
             where:{
-                Id:res[0].id
+                id:id
             }
         })
-    })
-    .then(res=>{
-        // console.log(res);
+        await Expanse.destroy({
+                where:{
+                    Id:response[0].id
+                }
+            })
         console.log('deleted');
-    })
-    .catch(err=>console.log(err));
+        res.status(200).json({success:true})
+    }catch(err){
+        console.log(err);
+    }
+}
+exports.editExpanse=async (req,res,next)=>{
+    try{
+        const Id=req.params.id;
+        const user=req.user;
+        const response=await user.getExpanses({
+            where:{
+                id:Id
+            }
+        })
+        await Expanse.update({where:{
+            id:response[0].id
+        }})
+        res.status(200).json({success:true,message:'Expanse Updated'})
+    }catch(err){
+        throw new Error(err);
+    }
 }

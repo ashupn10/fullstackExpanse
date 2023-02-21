@@ -25,13 +25,13 @@ exports.postLoginPage=async (req,res,next)=>{
                     const userId=generateKeyToken(user.id);
                     res.status(200).json({success:true,message:'user logged in',token:userId});
                 }else{
-                    res.status(401).json({success:false,message:'Invalid Password'});
+                    return res.status(401).json({success:false,message:'Invalid Password'});
                 }
                 if(err) console.log(err);
             })
         }
         else{
-            res.status(404).json({success:false,message:'User not found'});
+            return res.status(404).json({success:false,message:'User not found'});
         }
     }catch(err){
         console.log(err);

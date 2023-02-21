@@ -35,6 +35,10 @@ h2{
     text-decoration: none;
     color: white;
 }
+.link:hover{
+    background-color: rgb(233, 116, 116);
+    cursor:pointer
+}
 .getIn{
     position: absolute;
     right: 50px;
@@ -62,8 +66,8 @@ h2{
     padding: 5px;
     border: 1px solid rgb(226, 94, 94);
     border-radius: 5px;
-    width: 300px;
-    height: 300px;
+    /* width: 300px;
+    height: 300px; */
 }
 .input,input{
     margin-top: 5px;
@@ -72,11 +76,16 @@ h2{
     text-align: center;
     background-color: rgb(243, 172, 172);
 }
-.label{
-    color: crimson;
+.hide{
+    display: none;
 }
+.inputSize :hover + .hide{
+    display: block;
+    color: darkblue;
+}
+
 .btn{
-    background-color: rgb(233, 116, 116);
+    background-color: rgb(226, 94, 100);
     margin: 10px;
     padding: 4px;
     width: fit-content;
@@ -84,13 +93,28 @@ h2{
     border-radius: 5px;
     color: white;
 }
+.btn:hover{
+    background-color: rgb(233, 115, 120);
+    margin: 10px;
+    padding: 4px;
+    width: fit-content;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
 .Expanses{
-    width: 900px;
     height: fit-content;
+    width: 100%;
     margin: 5px;
     padding: 5px;
     border-radius: 5px;
     background-color: antiquewhite;
+    text-align: center;
+    align-items: center;
+}
+table{
+    margin: auto;
 }
 .inner_div{
     text-align: center;
