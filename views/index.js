@@ -43,22 +43,22 @@ function removeElementByClassName(tagName) {
     }
 }
 async function showReport() {
-    window.location.href = 'http://localhost:3000/report';
+    window.location.href = 'http://54.65.240.181:3000/report';
 }
 function showAlert() {
-    // return report.href='http://localhost:3000/index';
+    // return report.href='http://54.65.240.181:3000/index';
     alert('You are not a premium user');
-    report.href = 'http://localhost:3000/index';
+    report.href = 'http://54.65.240.181:3000/index';
 }
 async function initiateTransaction(e) {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    const response = await axios.get('http://localhost:3000/premium', { headers: { 'Authentication': token } })
+    const response = await axios.get('http://54.65.240.181:3000/premium', { headers: { 'Authentication': token } })
     var options = {
         'key': response.data.key_Id,
         'order_id': response.data.order.id,
         'handler': async function (response) {
-            await axios.post('http://localhost:3000/premium', {
+            await axios.post('http://54.65.240.181:3000/premium', {
                 order_id: options.order_id,
                 payment_id: response.razorpay_payment_id
             }, { headers: { 'Authentication': token } });
@@ -78,7 +78,7 @@ async function initiateTransaction(e) {
 }
 async function deleteExpanse(id) {
     const token = localStorage.getItem('token');
-    await axios.delete('http://localhost:3000/index/delete/' + `${id}`, { headers: { 'Authentication': token } })
+    await axios.delete('http://54.65.240.181:3000/index/delete/' + `${id}`, { headers: { 'Authentication': token } })
 }
 
 function postExpanses() {
@@ -91,7 +91,7 @@ function postExpanses() {
         category: category,
     }
     const token = localStorage.getItem('token');
-    axios.post('http://localhost:3000/index', data, { headers: { 'Authentication': token } })
+    axios.post('http://54.65.240.181:3000/index', data, { headers: { 'Authentication': token } })
         .then(result => {
             console.log(result);
         })
@@ -105,7 +105,7 @@ async function showPremium() {
     const premium = document.getElementById('isPremium');
     premium.innerText = 'You are Premium User';
     const token = localStorage.getItem('token');
-    const response = await axios.get('http://localhost:3000/premium/fetchAll', { headers: { 'Authentication': token } });
+    const response = await axios.get('http://54.65.240.181:3000/premium/fetchAll', { headers: { 'Authentication': token } });
     const leaderBoard = document.getElementById('leaderBoard');
     leaderBoard.innerHTML = '<button id="ldb_btn">Show leaderboard</button>';
     const ldb_btn = document.getElementById('ldb_btn');
@@ -135,7 +135,7 @@ function showLeaderBoard(data) {
 async function showExpanses(page = 1) {
     let itemsperPage = localStorage.getItem('ItemPerPage') ? localStorage.getItem('ItemPerPage') : 5;
     const token = localStorage.getItem('token');
-    const res = await axios.get('http://localhost:3000/index/fetch/' + `${page}/${itemsperPage}`, { headers: { 'Authentication': token } })
+    const res = await axios.get('http://54.65.240.181:3000/index/fetch/' + `${page}/${itemsperPage}`, { headers: { 'Authentication': token } })
     removeElementByClassName('row');
     const Totalpage = document.getElementById('totalPage');
     Totalpage.innerText = `Total Page ${res.data.totalpage}`;

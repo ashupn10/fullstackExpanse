@@ -60,8 +60,8 @@ forgotPassword.belongsTo(User);
 
 User.hasMany(DownloadedReport);
 DownloadedReport.belongsTo(User);
-Sequelize.sync()
-// Sequelize.sync({force:true})
+// Sequelize.sync()
+Sequelize.sync({force:true})
 .then(()=>{
     // https.createServer({key:privateKey,cert:certificate},app).listen(3000);
     app.listen(process.env.PORT||3000);

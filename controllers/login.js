@@ -5,7 +5,7 @@ const bcrypt=require('bcrypt');
 const User = require('../model/User');
 
 function generateKeyToken(id){
-    return jwt.sign({userId:id},'SecretKey');
+    return jwt.sign({userId:id},process.env.JWT_TOKEN);
 }
 
 exports.getLoginPage=(req,res,next)=>{

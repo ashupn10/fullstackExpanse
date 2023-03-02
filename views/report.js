@@ -17,7 +17,7 @@ downloadbtn.addEventListener('click',downloadReport)
 
 async function showLinks(){
     const token=localStorage.getItem('token');
-    const response=await axios.get('http://localhost:3000/report/downloadlink',{headers:{'Authentication':token}});
+    const response=await axios.get('http://54.65.240.181:3000/report/downloadlink',{headers:{'Authentication':token}});
     response.data.data.forEach(response=>{
         const linkdata=document.createElement('td');
         const date=document.createElement('td');
@@ -31,7 +31,7 @@ async function showLinks(){
 }
 async function downloadReport(){
     const token=localStorage.getItem('token');
-    const promise1=await axios.get('http://localhost:3000/report/download',{headers:{'Authentication':token}});
+    const promise1=await axios.get('http://54.65.240.181:3000/report/download',{headers:{'Authentication':token}});
     const a=document.createElement('a');
     a.href=promise1.data.data;
     a.click();
