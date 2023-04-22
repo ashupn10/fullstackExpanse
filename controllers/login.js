@@ -14,15 +14,11 @@ exports.getLoginPage=(req,res,next)=>{
 exports.postLoginPage=async (req,res,next)=>{
 
     try{
-        const user=await User.findOne({
-            where:{
-                email:req.body.data.email.toLowerCase()
-            }
-        })
+        const user=await User.findOne({email:req.body.data.email});
         if(user){
             bcrypt.compare(req.body.data.password,user.password,(err,result)=>{
                 if(result==true){
-                    const userId=generateKeyToken(user.id);
+                    const userId=generateKeyToken(user._id);
                     res.status(200).json({success:true,message:'user logged in',token:userId});
                 }else{
                     return res.status(401).json({success:false,message:'Invalid Password'});

@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const path = require('path');
 const { Op } = require('sequelize')
-const Expanse=require('../model/expanses');
+const Expanse=require('../model/expenses');
 require('dotenv').config();
 const viewPath = path.join(__dirname, '..', 'views');
 

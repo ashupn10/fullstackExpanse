@@ -1,5 +1,5 @@
 const path = require('path');
-const Expanse=require('../model/expanses');
+const Expanse=require('../model/expenses');
 const viewPath = path.join(__dirname, '..', 'views');
 
 exports.getIndex=(req,res,next)=>{
@@ -7,13 +7,15 @@ exports.getIndex=(req,res,next)=>{
 }
 exports.postIndex=async (req,res,next)=>{
     try{
-        const promise1= req.user.createExpanse({
+        const promise1= Expanse.save({
             category:req.body.category,
             description:req.body.description,
-            expanse:req.body.expanse
+            expanse:req.body.expanse,
+            userId:req.user,
         });
+        console.log('These are Expanses',req.body);
         const totalExpanse=parseInt(req.user.totalExpanse)+parseInt(req.body.expanse);
-        const promise2=req.user.update({totalExpanse:totalExpanse});
+        const promise2=req.user.save({totalExpanse:totalExpanse});
         Promise.all([promise1,promise2])
         .then(()=>{
             res.redirect('/index');

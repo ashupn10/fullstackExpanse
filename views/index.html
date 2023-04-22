@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <h1>Expanse Tracker</h1>
+    <h1>Expense Tracker</h1>
     <h2 id="username"></h2>
     <h2 id="isPremium"></h2>
     <header class="main_header">
@@ -18,7 +18,7 @@
             <nav class="nav-bar">
                 <ul class="item-list">
                     <a class="link btn" id="report">Report</a>
-                    <a href="http://54.65.240.181:3000/login" class="link btn" id="logout">logOut</a>
+                    <a href="http://localhost:3000/login" class="link btn" id="logout">logOut</a>
                     <button id="rzp-button">Go Premium</button>
                 </ul>
             </nav>
@@ -31,7 +31,7 @@
             <table id="Leaderboard_table">
                 <tr>
                     <th>Name</th>
-                    <th>Total Expanse</th>
+                    <th>Total Expense</th>
                 </tr>
             </table>
         </div>
@@ -44,7 +44,7 @@
             <div class="inner_div">
                 <div>
                     <div >
-                        <h3>Add Expanses</h3>
+                        <h3>Add Expenses</h3>
                         <form id="form">
                             <input type="number" name="Expanse" placeholder="Expanse in Rupees" id="Expanse">
                             <input type="text" name="description" id="description" placeholder="Description...">
@@ -67,12 +67,12 @@
                     <form id="itemsPerPage"><label class="hide" for="itemsper">item-per-page</label><br><input type="number" for="itemsper" class="inputSize" id="inputperpage"><br><button type="submit">Add</button></form>
                 </div>
                 <hr>
-                <h2 class="ExpanseH2">All Expanses</h2>
+                <h2 class="ExpanseH2">All Expenses</h2>
                 <table width="100%" id="table">
                     <tr class="first_row">
                         <th>category</th>
                         <th>Description</th>
-                        <th>Expanse</th>
+                        <th>Expense</th>
                       </tr>
                 </table>
                 <div class="pagination">

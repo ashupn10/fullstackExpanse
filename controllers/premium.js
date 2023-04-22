@@ -1,6 +1,6 @@
 const Razorpay= require('razorpay');
 const Order=require('../model/order');
-const Expanse=require('../model/expanses');
+const Expanse=require('../model/expenses');
 const User=require('../model/User');
 const sequelize = require('../util/database');
 const Sequelize=require('sequelize');

@@ -7,12 +7,8 @@ exports.getSignUpPage = (req, res, next) => {
 }
 exports.postSignUpPage = async (req, res, next) => {
     try{
-        const user = await User.findAll({
-            where: {
-                email: req.body.Email
-            }
-        })
-        if (user.length != 0) {
+        const user=await User.findOne({email:req.body.email});
+        if (user) {
             res.sendFile(viewPath + '/Existing.html');
         }
         else {
@@ -20,11 +16,14 @@ exports.postSignUpPage = async (req, res, next) => {
                 if(err){
                     console.log(err);
                 }else{
-                    await User.create({
+                    const user=new User({
                         name: req.body.Name,
                         email: req.body.Email.toLowerCase(),
-                        password: hash
-                    })
+                        password: hash,
+                        isPremium:false,
+                        totalExpanse:0,
+                    });
+                    await user.save();
                     console.log('This is Created')
                     res.redirect('/login')
                 }
