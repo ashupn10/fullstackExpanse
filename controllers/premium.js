@@ -1,9 +1,6 @@
 const Razorpay= require('razorpay');
-const Order=require('../model/order');
 const Expanse=require('../model/expenses');
 const User=require('../model/User');
-const sequelize = require('../util/database');
-const Sequelize=require('sequelize');
 
 
 // 'rzp_test_ymshxTVZbrKr6k'
@@ -36,15 +33,10 @@ exports.updateTransaction=async (req,res,next)=>{
     try{
         const {payment_id,order_id}=req.body;
         if(payment_id){
-            const response=await Order.findOne({where:{orderId:order_id}})
-            const promise1=response.update({paymentId:payment_id,status:'successful'})
-            const promise2= req.user.update({isPremium:true});
-            Promise.all([promise1,promise2])
-            .then(()=>{
-                return res.status(202).json({success:true,message:'Transaction Successful',isPremium:req.user.isPremium});
-            })
+            const response=await req.user.updateOrder(payment_id,order_id);
+            return res.status(202).json({success:true,message:'Transaction Successful',isPremium:req.user.isPremium});
         }else{
-            Order.findOne({where:{orderId:order_id}})
+            req.user.order({where:{orderId:order_id}})
             .then(response=>{
                 response.update({status:'failed'});
             })
@@ -55,19 +47,21 @@ exports.updateTransaction=async (req,res,next)=>{
 }
 exports.fetchAll=async (req,res,next)=>{
     try{
-        const response=await User.findAll({
-            attributes:['id','name',[sequelize.fn('sum',sequelize.col('Expanses.expanse')),'total_cost']],
-            include:[
-                {
-                    model:Expanse,
-                    attributes:[]
-                }
-            ],
-            group:['id']
-        })
+        const response=await User.find({},'name totalExpanse')
+        // const response=await User.findAll({
+        //     attributes:['id','name',[sequelize.fn('sum',sequelize.col('Expanses.expanse')),'total_cost']],
+        //     include:[
+        //         {
+        //             model:Expanse,
+        //             attributes:[]
+        //         }
+        //     ],
+        //     group:['id']
+        // })
         console.log(response);
         res.json(response);
     }catch(err){
+        console.log(err);
         res.status(500).json(err)
     }
 }

@@ -81,7 +81,7 @@ async function deleteExpanse(id) {
     await axios.delete('http://localhost:3000/index/delete/' + `${id}`, { headers: { 'Authentication': token } })
 }
 
-function postExpanses() {
+function postExpanses(e) {
     const expanse = document.getElementById('Expanse').value;
     const description = document.getElementById('description').value;
     const category = document.getElementById('category').value;
@@ -124,7 +124,7 @@ function showLeaderBoard(data) {
         const listItem2 = document.createElement('td');
 
         listItem1.innerText = user.name;
-        listItem2.innerText = user.total_cost;
+        listItem2.innerText = user.totalExpanse;
         list.appendChild(listItem1);
         list.appendChild(listItem2);
         table.appendChild(list);
@@ -149,7 +149,7 @@ async function showExpanses(page = 1) {
         let expansedata = document.createElement('td');
         let descriptiondata = document.createElement('td');
         let categorydata = document.createElement('td');
-        expansedata.innerText = element.expanse;
+        expansedata.innerText = element.expense;
         descriptiondata.innerText = element.description;
         categorydata.innerText = element.category;
         row.appendChild(categorydata);
@@ -163,7 +163,7 @@ async function showExpanses(page = 1) {
         Deletebtn.className = 'btn';
         Deletebtn.addEventListener('click', async (e) => {
             e.target.parentNode.remove();
-            deleteExpanse(element.id);
+            deleteExpanse(element._id);
         });
         editbtn.addEventListener('click',async(e)=>{
             const list=e.target.parentNode;
@@ -172,7 +172,7 @@ async function showExpanses(page = 1) {
             document.getElementById('category').value=listItem[0].innerText;
             document.getElementById('description').value=listItem[1].innerText;
             list.remove();
-            deleteExpanse(element.id);
+            deleteExpanse(element._id);
         })
         row.appendChild(editbtn);
         row.appendChild(Deletebtn);

@@ -14,13 +14,12 @@ require('dotenv').config();
 const signUpRouter=require('./routes/signUp');
 const loginRouter=require('./routes/login');
 const indexRouter=require('./routes/index');
-// const premiumRouter=require('./routes/premium');
+const premiumRouter=require('./routes/premium');
 // const passwordRouter=require('./routes/password');
-// const reportRouter=require('./routes/report');
+const reportRouter=require('./routes/report');
 // all models are imported here
 const User=require('./model/User');
 const Expanse=require('./model/expenses');
-// const Order=require('./model/order');
 // const forgotPassword=require('./model/forgotpasswordrequests');
 // const DownloadedReport=require('./model/DownloadedReport');
 
@@ -40,8 +39,8 @@ app.use(express.static('views'));
 app.use('/signUp',signUpRouter);
 app.use('/login',loginRouter);
 app.use('/index',indexRouter);
-// app.use('/report',reportRouter);
-// app.use('/premium',premiumRouter);
+app.use('/report',reportRouter);
+app.use('/premium',premiumRouter);
 
 
 mongoose.connect(process.env.MONGODB_URI).then(result=>{

@@ -54,9 +54,6 @@ exports.downloadReport = async (req, res, next) => {
 
     }
 }
-exports.sendReportFile = (req, res, next) => {
-    res.status(200).sendFile(viewPath + '/Report.html');
-}
 exports.downloadLink = async (req, res, next) => {
     try {
         const User = req.user;
@@ -66,4 +63,8 @@ exports.downloadLink = async (req, res, next) => {
         console.log(err);
         res.status(500).json({ success: false });
     }
+}
+
+exports.sendReportFile = (req, res, next) => {
+    res.status(200).sendFile(viewPath + '/Report.html');
 }

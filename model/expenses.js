@@ -10,11 +10,11 @@ const expanseSchema=new Schema({
         type:String,
         required:true,
     },
-    expenses:{
+    expense:{
         type:Number,
         required:true,
     },
-    userId:{type:Schema.Types.ObjectId,required:true},
+    userId:{type:Schema.Types.ObjectId,required:true,ref:'user'},
 })
 module.exports=mongoose.model('expense',expanseSchema);
 
